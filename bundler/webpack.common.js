@@ -9,11 +9,15 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, '../dist')
     },
+    context: path.join(__dirname, '../src'),
     plugins:
     [
         new CopyWebpackPlugin({
             patterns: [
-                { from: path.resolve(__dirname, '../dist') }
+                { 
+                    from: path.resolve(__dirname, '../src/images'),
+                    to: path.resolve(__dirname, '../dist/images'),
+                }
             ]
         }),
         new HtmlWebpackPlugin({
