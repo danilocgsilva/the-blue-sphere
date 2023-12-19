@@ -26,11 +26,21 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+const camera = new THREE.PerspectiveCamera(
+    45, 
+    sizes.width / sizes.height, 
+    0.1, 
+    100
+)
 camera.position.x = 0
-camera.position.y = 0
-camera.position.z = 2
+camera.position.y = 1
+camera.position.z = 4
+camera.rotation.x = -0.3
 scene.add(camera)
+
+const gridHelper = new THREE.GridHelper(3, 15);
+gridHelper.position.y = -1
+scene.add(gridHelper)
 
 makeOrbit(sphereMesh, scene, camera)
 
@@ -48,6 +58,5 @@ const tick = () => {
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
 }
-
 
 tick()
