@@ -6,6 +6,12 @@ import { makeOrbit } from './orbit';
 const canvas = document.querySelector('canvas.webgl')
 
 const scene = new THREE.Scene()
+const texture = new THREE.TextureLoader().load( "/images/pexels-photo-207529-2.jpeg" )
+texture.wrapS = THREE.RepeatWrapping
+texture.wrapT = THREE.RepeatWrapping
+texture.repeat.set( 1, 1 )
+scene.background = texture
+
 const sphereMesh = makeGeometry(scene)
 
 onLights(scene)
@@ -47,6 +53,7 @@ makeOrbit(sphereMesh, scene, camera)
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
+
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
