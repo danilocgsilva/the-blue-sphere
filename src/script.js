@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { onLights } from './lights';
 import { makeGeometry } from './geometry';
 import { makeOrbit } from './orbit';
+import './sass/index.scss';
 
 const canvas = document.querySelector('canvas.webgl')
 
@@ -17,13 +18,13 @@ const sphereMesh = makeGeometry(scene)
 onLights(scene)
 
 const sizes = {
-    width: window.innerWidth - 200,
-    height: window.innerHeight - 20
+    width: window.innerWidth - 185,
+    height: window.innerHeight - 5
 }
 
 window.addEventListener('resize', () => {
-    sizes.width = window.innerWidth - 200
-    sizes.height = window.innerHeight - 20
+    sizes.width = window.innerWidth - 185
+    sizes.height = window.innerHeight - 5
 
     camera.aspect = sizes.width / sizes.height
     camera.updateProjectionMatrix()
@@ -59,9 +60,17 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 const clock = new THREE.Clock()
 
+let factor = 0.0008
+document.getElementById('plus').addEventListener('click', function() {
+    factor += 0.0004
+})
+document.getElementById('minus').addEventListener('click', function() {
+    factor -= 0.0004
+})
+
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
-    sphereMesh.rotation.y = .2 * elapsedTime
+    sphereMesh.rotation.y += factor
     renderer.render(scene, camera)
     window.requestAnimationFrame(tick)
 }
